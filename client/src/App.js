@@ -2,6 +2,7 @@ import React from 'react'
 import Personal_Info from './Personal_Info'
 import Payment_Info from './Payment_info'
 import Shipping_Info from './Shipping_Info'
+import Summary_Info from './Summary_Info'
 
 const serverUrl = 'http://localhost:3000/'
 
@@ -11,7 +12,7 @@ class App extends React.Component {
 
         this.state = {
             viewOrder: ['personalView', 'shippingView', 'paymentView', 'submitView'],
-            currentView:0,
+            viewIdx:0,
             personalView: true,
             shippingView: false,
             paymentView: false,
@@ -32,10 +33,12 @@ class App extends React.Component {
         })
     }
     updateFormView() {
-        const nextView = this.state.currentView + 1
-        const newView = this.state.viewOrder[nextView]
+        const idx = this.state.viewIdx
+        const currView = this.state.viewOrder[idx]
+        const newView = this.state.viewOrder[idx + 1]
         this.setState({
-            currentView: nextView,
+            viewIdx: idx + 1,
+            [currView]: false,
             [newView]: true
         }, () => this.state.submitView && this.handlePost())
     }
@@ -55,6 +58,7 @@ class App extends React.Component {
         })
     }
     render() {
+        const {personal, payment, shipping} = this.state
         return (
             <div>
                 {this.state.personalView &&
@@ -63,6 +67,8 @@ class App extends React.Component {
                     <Shipping_Info handleSubmit={this.handleSubmit} updateFormView={this.updateFormView}/>}
                 {this.state.paymentView &&
                     <Payment_Info handleSubmit={this.handleSubmit} updateFormView={this.updateFormView}/>}
+                {this.state.submitView &&
+                    <Summary_Info personal={personal} payment={payment} shipping={shipping} updateFormView={this.updateFormView}/>}    
             </div>
         )
     }
