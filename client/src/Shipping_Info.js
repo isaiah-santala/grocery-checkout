@@ -6,7 +6,6 @@ class Shipping_Info extends React.Component {
 
         this.state = {
             form:'shipping',
-            line1:'',
             line1:'', 
             line2:'', 
             city:'', 
@@ -24,6 +23,7 @@ class Shipping_Info extends React.Component {
         })
     }
     render() {
+        const {line1, line2, city, state, zip, phone} = this.state
         return (
         <div>
             <h1>Shipping info</h1>
@@ -36,42 +36,42 @@ class Shipping_Info extends React.Component {
                 <label> primary address
                     <input
                     name="line1"
-                    value={this.state.name}
+                    value={line1}
                     onChange={this.handleChange}
                     ></input>
                 </label>
                 <label> alt address
                 <input
                     name="line2"
-                    value={this.state.email}
+                    value={line2}
                     onChange={this.handleChange}
                     ></input>
                 </label>
                 <label> city
                 <input
                     name="city"
-                    value={this.state.password}
+                    value={city}
                     onChange={this.handleChange}
                     ></input>
                 </label>
                 <label> state
                 <input
                     name="state"
-                    value={this.state.password}
+                    value={state}
                     onChange={this.handleChange}
                     ></input>
                 </label>
                 <label> zip
                 <input
                     name="zip"
-                    value={this.state.password}
+                    value={zip}
                     onChange={this.handleChange}
                     ></input>
                 </label>
                 <label> phone
                 <input
                     name="phone"
-                    value={this.state.password}
+                    value={phone}
                     onChange={this.handleChange}
                     ></input>
                 </label>

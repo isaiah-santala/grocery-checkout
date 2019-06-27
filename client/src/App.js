@@ -33,13 +33,11 @@ class App extends React.Component {
         })
     }
     updateFormView() {
-        const idx = this.state.viewIdx
-        const currView = this.state.viewOrder[idx]
-        const newView = this.state.viewOrder[idx + 1]
+        const {viewIdx, viewOrder} = this.state
         this.setState({
-            viewIdx: idx + 1,
-            [currView]: false,
-            [newView]: true
+            viewIdx: viewIdx + 1,
+            [viewOrder[viewIdx]]: false,
+            [viewOrder[viewIdx + 1]]: true
         }, () => this.state.submitView && this.handlePost())
     }
     handlePost() {
@@ -58,16 +56,16 @@ class App extends React.Component {
         })
     }
     render() {
-        const {personal, payment, shipping} = this.state
+        const { personal, payment, shipping, personalView, shippingView, paymentView, submitView } = this.state
         return (
             <div>
-                {this.state.personalView &&
+                {personalView &&
                     <Personal_Info handleSubmit={this.handleSubmit} updateFormView={this.updateFormView}/>}
-                {this.state.shippingView &&
+                {shippingView &&
                     <Shipping_Info handleSubmit={this.handleSubmit} updateFormView={this.updateFormView}/>}
-                {this.state.paymentView &&
+                {paymentView &&
                     <Payment_Info handleSubmit={this.handleSubmit} updateFormView={this.updateFormView}/>}
-                {this.state.submitView &&
+                {submitView &&
                     <Summary_Info personal={personal} payment={payment} shipping={shipping} updateFormView={this.updateFormView}/>}    
             </div>
         )

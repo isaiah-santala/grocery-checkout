@@ -21,6 +21,7 @@ class Payment_Info extends React.Component {
         })
     }
     render() {
+        const {cardNumber, exp, cvv, billingzip} = this.state
         return (
         <div>
             <h1>Account info</h1>
@@ -28,33 +29,33 @@ class Payment_Info extends React.Component {
             onSubmit={(event) => {
                 event.preventDefault()
                 this.props.handleSubmit(this.state)
-                this.props.updateFormView(this.state.form)
+                this.props.updateFormView()
             }}>
                 <label> card number
                     <input
                     name="cardNumber"
-                    value={this.state.cardNumber}
+                    value={cardNumber}
                     onChange={this.handleChange}
                     ></input>
                 </label>
                 <label> expiration date
                 <input
                     name="exp"
-                    value={this.state.exp}
+                    value={exp}
                     onChange={this.handleChange}
                     ></input>
                 </label>
                 <label> cvv
                 <input
                     name="cvv"
-                    value={this.state.cvv}
+                    value={cvv}
                     onChange={this.handleChange}
                     ></input>
                 </label>
                 <label> billing zip
                 <input
                     name="billingzip"
-                    value={this.state.billingzip}
+                    value={billingzip}
                     onChange={this.handleChange}
                     ></input>
                 </label>

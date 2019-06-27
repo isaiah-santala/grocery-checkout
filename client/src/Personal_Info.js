@@ -20,6 +20,7 @@ class Personal_Info extends React.Component {
         })
     }
     render() {
+        const {name, email, password} = this.state
         return (
         <div>
             <h1>Account info</h1>
@@ -32,21 +33,21 @@ class Personal_Info extends React.Component {
                 <label> name
                     <input
                     name="name"
-                    value={this.state.name}
+                    value={name}
                     onChange={this.handleChange}
                     ></input>
                 </label>
                 <label> email
                 <input
                     name="email"
-                    value={this.state.email}
+                    value={email}
                     onChange={this.handleChange}
                     ></input>
                 </label>
                 <label> password
                 <input
                     name="password"
-                    value={this.state.password}
+                    value={password}
                     onChange={this.handleChange}
                     ></input>
                 </label>
