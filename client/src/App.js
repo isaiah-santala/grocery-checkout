@@ -11,34 +11,30 @@ class App extends React.Component {
         super(props)
 
         this.state = {
-            viewOrder: ['personalView', 'shippingView', 'paymentView', 'submitView'],
+            viewOrder: ['/personal', '/shipping', '/payment', '/submit'],
             viewIdx:0,
-            personalView: true,
-            shippingView: false,
-            paymentView: false,
-            submitView: false,
+            currentView:'/personal',
             personal:{},
             shipping:{},
             payment:{}   
         }
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.updateFormView = this.updateFormView.bind(this)
         this.handlePost = this.handlePost.bind(this)
+        this.updateView = this.updateView.bind(this)
     }
-    handleSubmit(info) {
-        const stateKey = info.form
-        delete info.form
-        this.setState({
-            [stateKey]: info    
-        })
+    handleSubmit(userData) {
+        const formName = userData.form
+        delete userData.form
+        this.setState({   
+            [formName]: userData
+        }, () => this.updateView())
     }
-    updateFormView() {
-        const {viewIdx, viewOrder} = this.state
+    updateView() {
+        const {viewOrder, viewIdx} = this.state
         this.setState({
             viewIdx: viewIdx + 1,
-            [viewOrder[viewIdx]]: false,
-            [viewOrder[viewIdx + 1]]: true
-        }, () => this.state.submitView && this.handlePost())
+            currentView: viewOrder[viewIdx + 1] ,
+        }, () => this.state.currentView === '/submit' && this.handlePost())
     }
     handlePost() {
         const info = JSON.stringify({
@@ -56,17 +52,17 @@ class App extends React.Component {
         })
     }
     render() {
-        const { personal, payment, shipping, personalView, shippingView, paymentView, submitView } = this.state
+        const { personal, payment, shipping, currentView } = this.state
         return (
             <div>
-                {personalView &&
-                    <Personal_Info handleSubmit={this.handleSubmit} updateFormView={this.updateFormView}/>}
-                {shippingView &&
-                    <Shipping_Info handleSubmit={this.handleSubmit} updateFormView={this.updateFormView}/>}
-                {paymentView &&
-                    <Payment_Info handleSubmit={this.handleSubmit} updateFormView={this.updateFormView}/>}
-                {submitView &&
-                    <Summary_Info personal={personal} payment={payment} shipping={shipping} updateFormView={this.updateFormView}/>}    
+                {currentView === '/personal' &&
+                    <Personal_Info handleSubmit={this.handleSubmit} />}
+                {currentView === '/shipping'&&
+                    <Shipping_Info handleSubmit={this.handleSubmit} />}
+                {currentView === '/payment' &&
+                    <Payment_Info handleSubmit={this.handleSubmit} />}
+                {currentView === '/submit' &&
+                    <Summary_Info personal={personal} payment={payment} shipping={shipping} />}    
             </div>
         )
     }

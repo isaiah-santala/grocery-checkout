@@ -14,10 +14,9 @@ class Payment_Info extends React.Component {
         this.handleChange = this.handleChange.bind(this)
     }
     handleChange(event) {
-        const value = event.target.value
-        const stateKey = event.target.name
+        const {value, name} = event.target
         this.setState({
-            [stateKey]: value
+            [name]: value
         })
     }
     render() {
@@ -29,7 +28,6 @@ class Payment_Info extends React.Component {
             onSubmit={(event) => {
                 event.preventDefault()
                 this.props.handleSubmit(this.state)
-                this.props.updateFormView()
             }}>
                 <label> card number
                     <input
