@@ -11,7 +11,7 @@ class App extends React.Component {
         super(props)
 
         this.state = {
-            viewOrder: ['/personal', '/shipping', '/payment', '/submit'],
+            routes: ['/personal', '/shipping', '/payment', '/submit'],
             viewIdx:0,
             currentView:'/personal',
             personal:{},
@@ -30,10 +30,10 @@ class App extends React.Component {
         }, () => this.updateView())
     }
     updateView() {
-        const {viewOrder, viewIdx} = this.state
+        const {routes, viewIdx} = this.state
         this.setState({
             viewIdx: viewIdx + 1,
-            currentView: viewOrder[viewIdx + 1] ,
+            currentView: routes[viewIdx + 1] ,
         }, () => this.state.currentView === '/submit' && this.handlePost())
     }
     handlePost() {
